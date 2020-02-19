@@ -1,0 +1,28 @@
+abstract public class Home implements Serializable {
+    protected int id;
+    protected String address; // adress
+    protected String description; // Beskrivning
+    protected int price; // pris
+    protected float livingSpace; // Boarea
+    protected float rooms; // antal rum
+    protected int built; // Byggnadsår
+    protected int operationCost; // Driftskostnad
+    protected Broker broker; // mäklare
+
+-------------------------------------------------------
+public class Appartment extends Home {
+    private int floor; // våning
+    private int charge; // avgift
+
+-----------------------------------------------------------
+
+public class House extends Home {
+    private String cadastral; // fastighetsbeteckning
+    private String structure; // Byggnadstyp
+    private int plotSize; // tomtarea
+    private String ground; // Grund
+
+
+
+
+

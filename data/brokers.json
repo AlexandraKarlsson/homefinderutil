@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Niclas Gustavsson",
+    "phone": "0705-783186",
+    "email": "niclas.gustavsson@maklarhuset.se"
+  },
+  {
+    "name": "Peter Eriksén",
+    "phone": "0705-288333",
+    "email": "peter.eriksen@maklarhuset.se"
+  },
+  {
+    "name": "Patrik Lundberg",
+    "phone": "0708-665301",
+    "email": "patrik.lundberg@maklarhuset.se"
+  },
+  {
+    "name": "Ola Andersson",
+    "phone": "0705-205442",
+    "email": "ola.andersson@maklarhuset.se"
+  },
+  {
+    "name": "Ann-Christin Wiklund",
+    "phone": "0707-788090",
+    "email": "ann-christin.wiklund@maklarhuset.se"
+  }
+]

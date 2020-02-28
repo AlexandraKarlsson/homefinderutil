@@ -2,8 +2,9 @@
   "name": "homefinderutil",
   "version": "1.0.0",
   "description": "",
-  "main": "toJson.js",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "toJson": "node toJson.js",
     "toRdbm": "node toRdbm.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +12,8 @@
   "author": "Alexandra Karlsson",
   "license": "ISC",
   "dependencies": {
-    "mysql": "^2.18.1"
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0"
   }
 }

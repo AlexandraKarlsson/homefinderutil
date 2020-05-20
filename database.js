@@ -1,25 +1,25 @@
 const mysql = require('mysql2')
 
 const databaseConnectionInfo = {
-    host     : 'mysql',
-    user     : 'root',
-    password : 'example'
+    host: 'mysql',
+    user: 'root',
+    password: 'example'
 }
 const databasePool = mysql.createPool(databaseConnectionInfo)
 const databasePoolPromise = databasePool.promise()
 
 // TODO: Export for use in toRdbm module
 const homeFinderConnectionInfo = {
-    host     : 'mysql',
-    user     : 'root',
-    password : 'example',
-    database : 'homefinder'
+    host: 'mysql',
+    user: 'root',
+    password: 'example',
+    database: 'homefinder'
 }
 const homeFinderPool = mysql.createPool(homeFinderConnectionInfo)
 const homeFinderPoolPromise = homeFinderPool.promise()
 
 
-const createDatabase = async function() {
+const createDatabase = async function () {
     try {
         await databasePoolPromise.query("CREATE DATABASE IF NOT EXISTS homefinder")
         console.log("Database homefinder created")
@@ -28,7 +28,7 @@ const createDatabase = async function() {
     }
 }
 
-const deleteDatabase = async function() {
+const deleteDatabase = async function () {
     try {
         await databasePoolPromise.query("DROP DATABASE IF EXISTS homefinder")
         console.log('Database homefinder deleted')
@@ -37,12 +37,12 @@ const deleteDatabase = async function() {
     }
 }
 
-const createTables = async function() {
-    await createBrokerTable( )
-    await createHomeTable( )
-    await createSaleTable( )
-    await createApartmentTable( )
-    await createHouseTable( )
+const createTables = async function () {
+    await createBrokerTable()
+    await createHomeTable()
+    await createSaleTable()
+    await createApartmentTable()
+    await createHouseTable()
     await createImageTable()
 }
 
@@ -55,7 +55,7 @@ const createTable = async function (tableName, createTableQuery) {
     }
 }
 
-const createBrokerTable = async function() {
+const createBrokerTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS broker (
         id int primary key auto_increment,
         name varchar(50) NOT NULL,
@@ -65,7 +65,7 @@ const createBrokerTable = async function() {
     await createTable('broker', createTableQuery)
 }
 
-const createHomeTable = async function() {
+const createHomeTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS home (
         id INT PRIMARY KEY AUTO_INCREMENT,
         address VARCHAR(100) NOT NULL,
@@ -78,7 +78,7 @@ const createHomeTable = async function() {
     await createTable('home', createTableQuery)
 }
 
-const createApartmentTable = async function() {
+const createApartmentTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS apartment (
         id INT PRIMARY KEY AUTO_INCREMENT,
         apartmentnumber INT NOT NULL,
@@ -89,7 +89,7 @@ const createApartmentTable = async function() {
     await createTable('apartment', createTableQuery)
 }
 
-const createHouseTable = async function() {
+const createHouseTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS house (
         id INT PRIMARY KEY AUTO_INCREMENT,
         cadastral VARCHAR(50) NOT NULL,
@@ -102,7 +102,7 @@ const createHouseTable = async function() {
     await createTable('house', createTableQuery)
 }
 
-const createImageTable = async function() {
+const createImageTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS image (
         id INT PRIMARY KEY AUTO_INCREMENT,
         imagename VARCHAR(40) NOT NULL,
@@ -112,7 +112,7 @@ const createImageTable = async function() {
     await createTable('image', createTableQuery)
 }
 
-const createSaleTable = async function() {
+const createSaleTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS sale (
         id INT PRIMARY KEY AUTO_INCREMENT,
         date VARCHAR(10) NOT NULL,
@@ -125,7 +125,7 @@ const createSaleTable = async function() {
     await createTable('sale', createTableQuery)
 }
 
-const deleteTables = async function() {
+const deleteTables = async function () {
     await deleteTable('sale')
     await deleteTable('broker')
     await deleteTable('apartment')
@@ -134,14 +134,14 @@ const deleteTables = async function() {
     await deleteTable('home')
 }
 
-const deleteTable = async function(tableName) {
+const deleteTable = async function (tableName) {
     try {
-        const deleteQuery = `DROP TABLE ${tableName}`      
-        await homeFinderPoolPromise.query(deleteQuery)    
+        const deleteQuery = `DROP TABLE ${tableName}`
+        await homeFinderPoolPromise.query(deleteQuery)
         console.log(`Table ${tableName} deleted`)
-    } catch(error) {
+    } catch (error) {
         console.log(`Table ${tableName} deletion failed`)
-    }  
+    }
 }
 
 module.exports = {

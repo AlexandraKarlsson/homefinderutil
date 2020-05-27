@@ -44,6 +44,8 @@ const createTables = async function () {
     await createApartmentTable()
     await createHouseTable()
     await createImageTable()
+    await createUserTable()
+    await createTokenTable()
 }
 
 const createTable = async function (tableName, createTableQuery) {
@@ -125,6 +127,25 @@ const createSaleTable = async function () {
     await createTable('sale', createTableQuery)
 }
 
+const createUserTable = async function() {
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS user (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        username VARCHAR(32) NOT NULL,
+        password VARCHAR(32) NOT NULL,
+    )`
+    await createTable('user', createTableQuery)
+}
+
+const createTokenTable = async function() {
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS token (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        token VARCHAR(256) NOT NULL,
+        userId INT NOT NULL,
+        CONSTRAINT fk_token_user FOREIGN KEY (userId) REFERENCES user(id)
+    )`
+    await createTable('token', createTableQuery)
+}
+
 const deleteTables = async function () {
     await deleteTable('sale')
     await deleteTable('broker')
@@ -132,6 +153,8 @@ const deleteTables = async function () {
     await deleteTable('house')
     await deleteTable('image')
     await deleteTable('home')
+    await deleteTable('user')
+    await deleteTable('token')
 }
 
 const deleteTable = async function (tableName) {

@@ -130,8 +130,9 @@ const createSaleTable = async function () {
 const createUserTable = async function() {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS user (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        username VARCHAR(32) NOT NULL,
-        password VARCHAR(32) NOT NULL,
+        username VARCHAR(32) NOT NULL UNIQUE,
+        password VARCHAR(256) NOT NULL,
+        email VARCHAR(64) NOT NULL UNIQUE
     )`
     await createTable('user', createTableQuery)
 }

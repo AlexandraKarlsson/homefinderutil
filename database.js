@@ -46,6 +46,7 @@ const createTables = async function () {
     await createImageTable()
     await createUserTable()
     await createTokenTable()
+    await createFavoriteTable()
 }
 
 const createTable = async function (tableName, createTableQuery) {
@@ -140,11 +141,23 @@ const createUserTable = async function() {
 const createTokenTable = async function() {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS token (
         id INT PRIMARY KEY AUTO_INCREMENT,
+        access VARCHAR(32) NOT NULL,
         token VARCHAR(256) NOT NULL,
-        userId INT NOT NULL,
+        userid INT NOT NULL,
         CONSTRAINT fk_token_user FOREIGN KEY (userId) REFERENCES user(id)
     )`
     await createTable('token', createTableQuery)
+}
+
+const createFavoriteTable = async function() {
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS favorite (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        userid INT NOT NULL,
+        homeid INT NOT NULL,
+        CONSTRAINT fk_favorite_user FOREIGN KEY (userid) REFERENCES user(id),
+        CONSTRAINT fk_favorite_home FOREIGN KEY (homeid) REFERENCES home(id)
+    )`
+    await createTable('favorite', createTableQuery)
 }
 
 const deleteTables = async function () {
@@ -153,9 +166,10 @@ const deleteTables = async function () {
     await deleteTable('apartment')
     await deleteTable('house')
     await deleteTable('image')
+    await deleteTable('favorite')
     await deleteTable('home')
-    await deleteTable('user')
     await deleteTable('token')
+    await deleteTable('user')
 }
 
 const deleteTable = async function (tableName) {

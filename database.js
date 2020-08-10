@@ -46,6 +46,7 @@ const createTables = async function () {
     await createImageTable()
     await createUserTable()
     await createTokenTable()
+    await createBidTable()
     await createFavoriteTable()
 }
 
@@ -119,13 +120,28 @@ const createSaleTable = async function () {
     const createTableQuery = `CREATE TABLE IF NOT EXISTS sale (
         id INT PRIMARY KEY AUTO_INCREMENT,
         date VARCHAR(10) NOT NULL,
+        enddate VARCHAR(10),
         price INT NOT NULL,
+        endprice int,
         homeid INT NOT NULL,
         CONSTRAINT fk_sale_home FOREIGN KEY (homeid) REFERENCES home(id),
         brokerid INT NOT NULL,
         CONSTRAINT fk_sale_broker FOREIGN KEY (brokerid) REFERENCES broker(id)
     )`
     await createTable('sale', createTableQuery)
+}
+
+const createBidTable = async function () {
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS bid (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        date VARCHAR(10) NOT NULL,
+        price INT NOT NULL,
+        userid INT NOT NULL,
+        CONSTRAINT fk_bid_user FOREIGN KEY (userid) REFERENCES user(id),
+        saleid INT NOT NULL,
+        CONSTRAINT fk_bid_sale FOREIGN KEY (saleid) REFERENCES sale(id)
+    )`
+    await createTable('bid', createTableQuery)
 }
 
 const createUserTable = async function() {
@@ -160,7 +176,18 @@ const createFavoriteTable = async function() {
     await createTable('favorite', createTableQuery)
 }
 
+const createOrderTable = async function() {
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS order (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        userid INT NOT NULL,
+        date INT NOT NULL,
+        CONSTRAINT fk_favorite_user FOREIGN KEY (userid) REFERENCES user(id)
+    )`
+    await createTable('order', createTableQuery)
+}
+
 const deleteTables = async function () {
+    await deleteTable('bid')
     await deleteTable('sale')
     await deleteTable('broker')
     await deleteTable('apartment')
